@@ -5,11 +5,13 @@
 
 // What is the sum of the digits of the number 2^1000?
 
+var BigNumber = require('bignumber.js');
+
 // function to calculate the power digit sum for a number 2^n
 function powerDigitSum(n) {
 
   // calculate the value to break up into its digits
-  var value = Math.pow(2,n);
+  var value = new BigNumber(Math.pow(2,n));
   console.log('initial value:', value);
 
   // store the sum of the digits
@@ -18,6 +20,7 @@ function powerDigitSum(n) {
 
   // parse digits
   while (value > 10) {
+    console.log('value % 10:', value % 10);
     sum += Math.floor(value % 10);
     value = value / 10;
     console.log('sum:', sum);
@@ -32,3 +35,5 @@ function powerDigitSum(n) {
 // test
 console.log(powerDigitSum(15));
 console.log(powerDigitSum(1000));
+console.log(10715086071862696000 % 10);
+console.log(1071508607186269600 / 10);
