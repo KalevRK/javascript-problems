@@ -5,9 +5,11 @@
 
 function generator(sequencer) {
 
+  // capture any additional arguments passed into the generator function
+  var args = Array.prototype.slice.call(arguments, 1);
   // return an object with a next method
   return {
-    next: sequencer(arguments)
+    next: sequencer.apply(this, args)
   }
 
 }
@@ -44,6 +46,15 @@ function fibonacciSeq() {
 }
 
 function rangeSeq(start, step) {
+  var current;
+  return function() {
+    if (!current) {
+      current = start;
+    } else {
+      current += step;
+    }
+    return current;
+  }
 }
 
 function primeSeq() {
@@ -79,13 +90,12 @@ console.log('seq.next():', seq.next()); // fib(4) = 5
 console.log('seq.next():', seq.next()); // fib(5) = 8
 console.log('seq.next():', seq.next()); // fib(6) = 13
   
-//   Test.it("Test Range generator", function() {
-//     var seq = generator(rangeSeq, 5, 3); // 5,8,11,14,17
-//     Test.assertEquals(seq.next(), 5);
-//     Test.assertEquals(seq.next(), 8);
-//     Test.assertEquals(seq.next(), 11);
-//     Test.assertEquals(seq.next(), 14);
-//   });
+console.log("Test Range generator");
+var seq = generator(rangeSeq, 5, 3); // 5,8,11,14,17
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
   
 //   Test.it("Test Prime Numbers generator", function() {
 //     var seq = generator(primeSeq);
