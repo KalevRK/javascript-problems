@@ -85,7 +85,21 @@ function primeSeq() {
 }
 
 function partialSumSeq() {
-  
+  // closure variable for the partial sum so far
+  var sum = 0;
+
+  // closure variable to store the passed in arguments
+  var args = Array.prototype.slice.call(arguments);
+  console.log('args:', args);
+
+  return function() {
+    if (args.length > 0) {
+      sum += args.shift();
+      return sum;
+    } else {
+      throw new Error('No more arguments');
+    }
+  }
 }
 
 // test
@@ -133,12 +147,10 @@ console.log('seq.next():', seq.next());
 console.log('seq.next():', seq.next());
 console.log('seq.next():', seq.next());
   
-//   Test.it("Test partial sum generator", function() {
-//     var seq = generator(partialSumSeq, -1, 4, 2, 5);
-//     Test.assertEquals(seq.next(), -1);
-//     Test.assertEquals(seq.next(), 3);
-//     Test.assertEquals(seq.next(), 5);
-//     Test.assertEquals(seq.next(), 10); //End of sequence
-//     Test.expectError('End of sequence error expected', seq.next);
-//   });
-// });
+console.log("Test partial sum generator");
+var seq = generator(partialSumSeq, -1, 4, 2, 5);
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next()); // End of sequence
+// console.log('seq.next():', seq.next()); // Beyond end of sequence throw error
