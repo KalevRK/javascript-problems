@@ -58,9 +58,34 @@ function rangeSeq(start, step) {
 }
 
 function primeSeq() {
+  var currentPrime = 1;
+  var isPrime = true;
+  return function() {
+    // start incrementing from the current prime number, check each subsequent number until you get to the next prime number, and then store that as the current prime and return it
+    while (true) {
+      // increment the number being checked
+      currentPrime++;
+      // reset the prime flag
+      isPrime = true;
+      
+      // determine if the number being checked is prime
+      for (var i = 2; i <= Math.sqrt(currentPrime); i++) {
+        // if not prime then change flag
+        if (currentPrime % i === 0) {
+          isPrime = false;
+        }
+      }
+
+      // if the number being checked is prime then return it
+      if (isPrime) {
+        return currentPrime; 
+      }
+    }
+  }
 }
 
 function partialSumSeq() {
+  
 }
 
 // test
@@ -97,17 +122,16 @@ console.log('seq.next():', seq.next());
 console.log('seq.next():', seq.next());
 console.log('seq.next():', seq.next());
   
-//   Test.it("Test Prime Numbers generator", function() {
-//     var seq = generator(primeSeq);
-//     Test.assertEquals(seq.next(), 2);
-//     Test.assertEquals(seq.next(), 3);
-//     Test.assertEquals(seq.next(), 5);
-//     Test.assertEquals(seq.next(), 7);
-//     Test.assertEquals(seq.next(), 11);
-//     Test.assertEquals(seq.next(), 13);
-//     Test.assertEquals(seq.next(), 17);
-//     Test.assertEquals(seq.next(), 19);
-//   });
+console.log("Test Prime Numbers generator");
+var seq = generator(primeSeq);
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
+console.log('seq.next():', seq.next());
   
 //   Test.it("Test partial sum generator", function() {
 //     var seq = generator(partialSumSeq, -1, 4, 2, 5);
