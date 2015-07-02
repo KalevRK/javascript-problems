@@ -66,7 +66,7 @@ MemoryManager.prototype.allocate = function(size){
     }
   }
 
-  if (firstFreeIndex !== -1) {
+  if ((currIndex - firstFreeIndex + 1 === size) && (firstFreeIndex !== -1)) {
     // return the first free index
     return firstFreeIndex;
   }
@@ -139,3 +139,6 @@ actual = memoryManager.read(pointer);
 
 console.log('Expect read data to equal written data:', actual === expected); // true
 console.log('Expect written value to be at correct location in memory array:', expected === array[pointer]); // true
+
+pointer = memoryManager.allocate(10); // throw exception
+console.log('pointer:', pointer);
